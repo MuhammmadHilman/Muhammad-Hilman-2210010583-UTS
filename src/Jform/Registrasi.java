@@ -5,14 +5,20 @@
  */
 package Jform;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import koneksi.koneksi;
+
 /**
  *
  * @author Hilman
  */
 public class Registrasi extends javax.swing.JFrame {
-
+    private Connection conn = new koneksi().connect();
     /**
-     * Creates new form Registrasi
+     * 
      */
     public Registrasi() {
         initComponents();
@@ -27,21 +33,117 @@ public class Registrasi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        textusername = new javax.swing.JTextField();
+        textpassword = new javax.swing.JTextField();
+        registrasijButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Registrasi");
+
+        jLabel2.setText("Username");
+
+        jLabel3.setText("Password");
+
+        registrasijButton.setText("Registrasi");
+        registrasijButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrasijButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(registrasijButton)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textusername)
+                                    .addComponent(textpassword, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))))))
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(textusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(textpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(registrasijButton)
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void registrasijButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrasijButtonActionPerformed
+             try {
+            if (textusername.getText().isEmpty() || textpassword.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username dan Password tidak boleh kosong!");
+                return;
+            }
+
+            String username = textusername.getText();
+            String password = textpassword.getText();
+
+            String checkSql = "SELECT * FROM mst_user WHERE username = '" + username + "'";
+            Statement checkStmt = conn.createStatement();
+            ResultSet checkResult = checkStmt.executeQuery(checkSql);
+
+            if (checkResult.next()) {
+                JOptionPane.showMessageDialog(null, "Username sudah terdaftar!");
+                return;
+            }
+
+            String sql = "INSERT INTO mst_user (username, password) VALUES ('" + username + "', '" + password + "')";
+            Statement stat = conn.createStatement();
+            stat.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(null, "Registrasi Berhasil!");
+            this.setVisible(false);
+            new Login().setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Registrasi Gagal! " + e);
+        }
+    }//GEN-LAST:event_registrasijButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,6 +172,7 @@ public class Registrasi extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        java.awt.EventQueue.invokeLater(() -> new Registrasi().setVisible(true));
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -79,5 +182,12 @@ public class Registrasi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton registrasijButton;
+    private javax.swing.JTextField textpassword;
+    private javax.swing.JTextField textusername;
     // End of variables declaration//GEN-END:variables
 }
