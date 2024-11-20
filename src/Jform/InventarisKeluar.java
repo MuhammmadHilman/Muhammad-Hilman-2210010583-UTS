@@ -28,33 +28,8 @@ public class InventarisKeluar extends javax.swing.JFrame {
      */
     public InventarisKeluar() {
         initComponents();
-        loadKategori();
         datatable();
-        jCombokategori = new javax.swing.JComboBox<>();
-        
-        // Pastikan koneksi database sudah ada
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyek_uts", "username", "password");
-
-            // Query untuk mengambil data kategori
-            String sql = "SELECT nama_kategori FROM kategori";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            // Model untuk JComboBox
-            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-
-            // Menambahkan data kategori ke JComboBox
-            while (rs.next()) {
-                model.addElement(rs.getString("nama_kategori"));
-            }
-
-            // Mengatur model JComboBox
-            jCombokategori.setModel(model);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-        }
+        loadKategori();
             
             bcarikodebarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +43,11 @@ public class InventarisKeluar extends javax.swing.JFrame {
             }
         });
 
+            jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
     }
 
     /**
@@ -281,6 +261,11 @@ public class InventarisKeluar extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -336,58 +321,74 @@ public class InventarisKeluar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadKategori() {
+    try {
+        // Query untuk mengambil data kategori_barang dari inventaris_masuk
+        String sql = "SELECT DISTINCT kategori_barang FROM inventaris_masuk";
+        PreparedStatement stat = conn.prepareStatement(sql);
+        ResultSet hasil = stat.executeQuery();
+
+        // Model untuk JComboBox
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        model.addElement("Pilih Kategori"); // Item default
+
+        // Tambahkan data kategori ke model JComboBox
+        while (hasil.next()) {
+            model.addElement(hasil.getString("kategori_barang"));
+        }
+
+        // Atur model JComboBox
+        jCombokategori.setModel(model);
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal memuat kategori: " + e.getMessage());
+    }
+}
+    
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
         // Mengambil data yang diperlukan
-      String kodeBarang = txtkodebarang.getText();
-      int jumlahKeluar = Integer.parseInt(txtjumlahkeluar.getText());
-      String keterangan = txtketerangan.getText();
-      java.sql.Date tanggalKeluar = new java.sql.Date(jDateChooserkeluar.getDate().getTime());
+        String kodeBarang = txtkodebarang.getText();
+        int jumlahKeluar = Integer.parseInt(txtjumlahkeluar.getText());
+        String keterangan = txtketerangan.getText();
+        java.sql.Date tanggalKeluar = new java.sql.Date(jDateChooserkeluar.getDate().getTime());
 
-      // Query untuk mendapatkan jumlah barang yang ada di inventaris_masuk
-      String sqlSelect = "SELECT jumlah FROM inventaris_masuk WHERE kode_barang = ?";
+        String sqlSelect = "SELECT jumlah FROM inventaris_masuk WHERE kode_barang = ?";
+        String sqlUpdate = "UPDATE inventaris_masuk SET jumlah = jumlah - ? WHERE kode_barang = ?";
+        String sqlInsert = "INSERT INTO inventaris_keluar (kode_barang, tanggal_keluar, jumlah_keluar, keterangan) VALUES (?, ?, ?, ?)";
 
-      // Query untuk mengurangi jumlah barang di inventaris_masuk
-      String sqlUpdate = "UPDATE inventaris_masuk SET jumlah = jumlah - ? WHERE kode_barang = ?";
+        try {
+            PreparedStatement psSelect = conn.prepareStatement(sqlSelect);
+            psSelect.setString(1, kodeBarang);
+            ResultSet rs = psSelect.executeQuery();
 
-      // Query untuk mencatat barang keluar
-      String sqlInsert = "INSERT INTO inventaris_keluar (kode_barang, tanggal_keluar, jumlah_keluar, keterangan) VALUES (?, ?, ?, ?)";
+            if (rs.next()) {
+                int jumlahMasuk = rs.getInt("jumlah");
 
-      try {
-          // Menyiapkan statement untuk select jumlah
-          PreparedStatement psSelect = conn.prepareStatement(sqlSelect);
-          psSelect.setString(1, kodeBarang);
-          ResultSet rs = psSelect.executeQuery();
+                if (jumlahMasuk >= jumlahKeluar) {
+                    PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
+                    psUpdate.setInt(1, jumlahKeluar);
+                    psUpdate.setString(2, kodeBarang);
+                    psUpdate.executeUpdate();
 
-          // Mengecek apakah barang ada di inventaris_masuk
-          if (rs.next()) {
-              int jumlahMasuk = rs.getInt("jumlah");
+                    PreparedStatement psInsert = conn.prepareStatement(sqlInsert);
+                    psInsert.setString(1, kodeBarang);
+                    psInsert.setDate(2, tanggalKeluar);
+                    psInsert.setInt(3, jumlahKeluar);
+                    psInsert.setString(4, keterangan);
+                    psInsert.executeUpdate();
 
-              // Mengecek apakah jumlah yang diminta untuk keluar tidak melebihi jumlah yang ada di inventaris_masuk
-              if (jumlahMasuk >= jumlahKeluar) {
-                  // Mengurangi jumlah di inventaris_masuk
-                  PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
-                  psUpdate.setInt(1, jumlahKeluar);
-                  psUpdate.setString(2, kodeBarang);
-                  psUpdate.executeUpdate();
-
-                  // Menyimpan data barang keluar
-                  PreparedStatement psInsert = conn.prepareStatement(sqlInsert);
-                  psInsert.setString(1, kodeBarang);
-                  psInsert.setDate(2, tanggalKeluar);
-                  psInsert.setInt(3, jumlahKeluar);
-                  psInsert.setString(4, keterangan);
-                  psInsert.executeUpdate();
-
-                  JOptionPane.showMessageDialog(null, "Barang berhasil dicatat keluar dan jumlah inventaris diperbarui.");
-              } else {
-                  JOptionPane.showMessageDialog(null, "Jumlah barang yang keluar melebihi stok yang tersedia.");
-              }
-          } else {
-              JOptionPane.showMessageDialog(null, "Kode barang tidak ditemukan.");
-          }
-      } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
+                    JOptionPane.showMessageDialog(null, "Data berhasil disimpan!");
+                    kosong();
+                    datatable(); // Refresh tabel
+                } else {
+                    JOptionPane.showMessageDialog(null, "Jumlah barang keluar melebihi stok.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Kode barang tidak ditemukan.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
@@ -423,18 +424,22 @@ public class InventarisKeluar extends javax.swing.JFrame {
     }//GEN-LAST:event_bcarikodebarangActionPerformed
 
     private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
-        int ok = JOptionPane.showConfirmDialog(null, "Hapus data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        if (ok == JOptionPane.YES_OPTION) {
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
             String sql = "DELETE FROM inventaris_keluar WHERE id_keluar=?";
             try {
                 PreparedStatement stat = conn.prepareStatement(sql);
                 stat.setInt(1, Integer.parseInt(txtid.getText()));
-                stat.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-                kosong();
-                datatable();
+                int rowsAffected = stat.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
+                    kosong();
+                    datatable(); // Refresh tabel
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data gagal dihapus.");
+                }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Data gagal dihapus: " + e);
+                JOptionPane.showMessageDialog(null, "Error saat menghapus data: " + e.getMessage());
             }
         }
     }//GEN-LAST:event_bhapusActionPerformed
@@ -446,32 +451,29 @@ public class InventarisKeluar extends javax.swing.JFrame {
     private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
         // Cek apakah input kode barang tidak kosong
         if (txtkodebarang.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode barang harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
+        JOptionPane.showMessageDialog(null, "Kode barang harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
         }
 
-        // Query untuk mengupdate data
         String sql = "UPDATE inventaris_keluar SET kode_barang=?, tanggal_keluar=?, jumlah_keluar=?, keterangan=? WHERE id_keluar=?";
         try {
             PreparedStatement stat = conn.prepareStatement(sql);
-            // Menetapkan parameter sesuai input form
             stat.setString(1, txtkodebarang.getText());
             stat.setDate(2, new java.sql.Date(jDateChooserkeluar.getDate().getTime()));
             stat.setInt(3, Integer.parseInt(txtjumlahkeluar.getText()));
             stat.setString(4, txtketerangan.getText());
-            stat.setInt(5, Integer.parseInt(txtid.getText()));  // ID dari data yang ingin diubah
+            stat.setInt(5, Integer.parseInt(txtid.getText()));
 
-            // Menjalankan query untuk mengupdate data
             int rowsAffected = stat.executeUpdate();
             if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, "Data berhasil diubah!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                // Memperbarui tabel atau tampilan setelah data diubah
-                datatable();  // Memanggil metode untuk memperbarui tabel
+                JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
+                kosong();
+                datatable(); // Refresh tabel
             } else {
-                JOptionPane.showMessageDialog(null, "Data gagal diubah", "Kesalahan", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Data gagal diubah.");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error saat mengubah data: " + e.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error saat mengubah data: " + e.getMessage());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Input jumlah keluar harus berupa angka!", "Kesalahan Input", JOptionPane.ERROR_MESSAGE);
         }
@@ -500,6 +502,32 @@ public class InventarisKeluar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data gagal dicari: " + e);
         }
     }//GEN-LAST:event_bcariActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Ambil baris yang dipilih
+        int row = jTable1.getSelectedRow();
+
+        // Ambil data dari baris yang dipilih berdasarkan kolom
+        String id = jTable1.getValueAt(row, 0).toString();
+        String kodeBarang = jTable1.getValueAt(row, 1).toString();
+        String namaBarang = jTable1.getValueAt(row, 2).toString();
+        String tanggalKeluar = jTable1.getValueAt(row, 3).toString();
+        String jumlahKeluar = jTable1.getValueAt(row, 4).toString();
+        String keterangan = jTable1.getValueAt(row, 5).toString();
+
+        // Isi data ke JTextField
+        txtid.setText(id);
+        txtkodebarang.setText(kodeBarang);
+        txtnamabarang.setText(namaBarang);
+        try {
+            java.util.Date date = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tanggalKeluar);
+            jDateChooserkeluar.setDate(date);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal memparsing tanggal: " + e.getMessage());
+        }
+        txtjumlahkeluar.setText(jumlahKeluar);
+        txtketerangan.setText(keterangan);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     
      protected void datatable() {
@@ -542,25 +570,6 @@ public class InventarisKeluar extends javax.swing.JFrame {
         return namaBarang;
     }
      
-    private void loadKategori() {
-        try {
-        System.out.println("jCombokategori: " + jCombokategori);
-
-        String sql = "SELECT DISTINCT kategori FROM inventaris_masuk"; // Ganti dengan nama kolom kategori yang sesuai
-        Statement stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery(sql);
-        
-        // Pastikan jCombokategori sudah diinisialisasi dan siap untuk diisi
-        jCombokategori.removeAllItems(); // Menghapus item sebelumnya
-
-        // Mengecek apakah ada data kategori
-        while (rs.next()) {
-            jCombokategori.addItem(rs.getString("kategori")); // Menambahkan kategori ke JComboBox
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-    }
-}
      
      private void kosong() {
         txtid.setText("");
