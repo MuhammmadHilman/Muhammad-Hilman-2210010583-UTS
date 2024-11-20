@@ -5,19 +5,46 @@
  */
 package Jform;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import koneksi.koneksi;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Hilman
  */
 public class DataBarang extends javax.swing.JFrame {
-
+    private Connection conn = new koneksi().connect();
+    private DefaultTableModel tabmode; 
     /**
      * Creates new form DataBarang
      */
     public DataBarang() {
         initComponents();
+         datatable();
+         
+           bcetakdata.addActionListener(new java.awt.event.ActionListener() {
+           public void actionPerformed(java.awt.event.ActionEvent evt) {
+               bcetakdataActionPerformed(evt);
+           }
+       });
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +54,177 @@ public class DataBarang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtcaridata = new javax.swing.JTextField();
+        bcaridata = new javax.swing.JButton();
+        bcetakdata = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Inventaris Barang", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 24))); // NOI18N
+
+        jLabel1.setText("Cari Data");
+
+        bcaridata.setText("Cari");
+        bcaridata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcaridataActionPerformed(evt);
+            }
+        });
+
+        bcetakdata.setText("Cetak");
+        bcetakdata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcetakdataActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtcaridata, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bcaridata)
+                                .addGap(18, 18, 18)
+                                .addComponent(bcetakdata)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcaridata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bcaridata)
+                    .addComponent(bcetakdata))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bcaridataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcaridataActionPerformed
+        String cari = txtcaridata.getText();
+        if (cari.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Masukkan data untuk pencarian");
+        } else {
+            String sql = "SELECT * FROM data_barang WHERE kode_barang LIKE ? OR nama_barang LIKE ? OR kategori_barang LIKE ?";
+            try {
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.setString(1, "%" + cari + "%");
+                stat.setString(2, "%" + cari + "%");
+                stat.setString(3, "%" + cari + "%");
+
+                ResultSet hasil = stat.executeQuery();
+                tabmode.setRowCount(0);  // Menghapus data lama di tabel
+
+                while (hasil.next()) {
+                    String kodeBarang = hasil.getString("kode_barang");
+                    String namaBarang = hasil.getString("nama_barang");
+                    String kategoriBarang = hasil.getString("kategori_barang");
+                    int jumlahMasuk = hasil.getInt("jumlah_masuk");
+                    int jumlahKeluar = hasil.getInt("jumlah_keluar");
+                    int sisaStok = hasil.getInt("sisa_stok");
+                    String tanggalKeluar = hasil.getString("tanggal_keluar");
+                    String keterangan = hasil.getString("keterangan");
+
+                    // Menambahkan hasil pencarian ke tabel
+                    String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok), tanggalKeluar, keterangan};
+                    tabmode.addRow(data);  // Menambah baris ke tabel
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Gagal mencari data: " + e);
+            }
+        }
+    }//GEN-LAST:event_bcaridataActionPerformed
+
+    
+    
+    private void bcetakdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcetakdataActionPerformed
+            try {
+            // Lokasi file laporan .jrxml atau .jasper
+            String path = "C:\\Users\\Hp\\Documents\\NetBeansProjects\\Muhammad Hilman-2210010583-UTS\\src\\laporan\\DataBarangReport.jasper";
+
+            // Membuat parameter untuk laporan (opsional, jika diperlukan)
+            HashMap<String, Object> parameter = new HashMap<>();
+            parameter.put("param1", "Nilai contoh"); // Ubah sesuai kebutuhan atau hapus jika tidak digunakan
+
+            // Memuat dan menampilkan laporan
+            JasperPrint print = JasperFillManager.fillReport(path, parameter, conn);
+            JasperViewer.viewReport(print, false); // Menampilkan laporan
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal mencetak laporan: " + e.getMessage());
+        }
+    }//GEN-LAST:event_bcetakdataActionPerformed
+
+    protected void datatable() {
+        Object[] columns = {"Kode Barang", "Nama Barang", "Kategori Barang", "Jumlah Masuk", "Jumlah Keluar", "Sisa Stok", "Tanggal Keluar", "Keterangan"};
+        tabmode = new DefaultTableModel(null, columns);
+        jTable1.setModel(tabmode);
+
+        String sql = "SELECT * FROM data_barang";
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            ResultSet hasil = stat.executeQuery();
+
+            while (hasil.next()) {
+                String kodeBarang = hasil.getString("kode_barang");
+                String namaBarang = hasil.getString("nama_barang");
+                String kategoriBarang = hasil.getString("kategori_barang");
+                int jumlahMasuk = hasil.getInt("jumlah_masuk");
+                int jumlahKeluar = hasil.getInt("jumlah_keluar");
+                int sisaStok = hasil.getInt("sisa_stok");
+                String tanggalKeluar = hasil.getString("tanggal_keluar");
+                String keterangan = hasil.getString("keterangan");
+
+                String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok), tanggalKeluar, keterangan};
+                tabmode.addRow(data);  // Menambahkan data ke tabel
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Data gagal ditampilkan: " + e);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -79,5 +261,12 @@ public class DataBarang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bcaridata;
+    private javax.swing.JButton bcetakdata;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtcaridata;
     // End of variables declaration//GEN-END:variables
 }
