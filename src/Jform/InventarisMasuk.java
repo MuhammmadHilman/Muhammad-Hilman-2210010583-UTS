@@ -394,75 +394,127 @@ public class InventarisMasuk extends javax.swing.JFrame {
     
     private void bsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bsimpanActionPerformed
         try {
+            // Query SQL untuk menyisipkan data ke tabel inventaris_masuk
             String sql = "INSERT INTO inventaris_masuk (kode_barang, nama_barang, kategori_barang, jumlah, nilai_barang, merek, ukuran, keterangan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, txtkodebarang.getText());
-            stmt.setString(2, txtnamabarang.getText());
-            stmt.setString(3, txtkategoribarang.getText());
-            stmt.setInt(4, Integer.parseInt(txtjumlah.getText()));
-            stmt.setDouble(5, Double.parseDouble(txtnilaibarang.getText()));
-            stmt.setString(6, txtmerek.getText());
-            stmt.setString(7, txtukuran.getText());
-            stmt.setString(8, txtketerangan.getText());
 
+            // Mempersiapkan statement untuk eksekusi query dengan parameter dinamis
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // Mengisi parameter query dengan data dari form input
+            stmt.setString(1, txtkodebarang.getText()); // Parameter 1: kode_barang
+            stmt.setString(2, txtnamabarang.getText()); // Parameter 2: nama_barang
+            stmt.setString(3, txtkategoribarang.getText()); // Parameter 3: kategori_barang
+            stmt.setInt(4, Integer.parseInt(txtjumlah.getText())); // Parameter 4: jumlah (angka)
+            stmt.setDouble(5, Double.parseDouble(txtnilaibarang.getText())); // Parameter 5: nilai_barang (desimal)
+            stmt.setString(6, txtmerek.getText()); // Parameter 6: merek
+            stmt.setString(7, txtukuran.getText()); // Parameter 7: ukuran
+            stmt.setString(8, txtketerangan.getText()); // Parameter 8: keterangan
+
+            // Menjalankan query INSERT dan mendapatkan jumlah baris yang terpengaruh
             int rowsAffected = stmt.executeUpdate();
+
+            // Mengecek apakah data berhasil disimpan
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(null, "Data berhasil disimpan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                datatable();  // Refresh table data
-                kosong();  // Clear fields
+
+                // Memperbarui tabel data setelah penyimpanan
+                datatable();
+
+                // Mengosongkan form input setelah data berhasil disimpan
+                kosong();
             } else {
                 JOptionPane.showMessageDialog(null, "Data gagal disimpan!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException ex) {
+            // Menangani kesalahan SQL dan menampilkan pesan error
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Kesalahan", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException e) {
+            // Menangani kesalahan input jika jumlah atau nilai_barang bukan angka yang valid
             JOptionPane.showMessageDialog(null, "Input salah, pastikan jumlah dan nilai adalah angka yang valid.", "Kesalahan Input", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bubahActionPerformed
+        // Query SQL untuk mengupdate data di tabel `inventaris_masuk`
         String sql = "UPDATE inventaris_masuk SET nama_barang=?, kategori_barang=?, jumlah=?, nilai_barang=?, merek=?, ukuran=?, keterangan=? WHERE kode_barang=?";
+
         try {
+            // Mempersiapkan statement dengan parameter dinamis
             PreparedStatement stat = conn.prepareStatement(sql);
-            stat.setString(1, txtnamabarang.getText());
-            stat.setString(2, txtkategoribarang.getText());
-            stat.setInt(3, Integer.parseInt(txtjumlah.getText()));
-            stat.setDouble(4, Double.parseDouble(txtnilaibarang.getText()));
-            stat.setString(5, txtmerek.getText());
-            stat.setString(6, txtukuran.getText());
-            stat.setString(7, txtketerangan.getText());
-            stat.setString(8, txtkodebarang.getText());
+
+            // Mengisi parameter query dengan data dari form input
+            stat.setString(1, txtnamabarang.getText()); // Parameter 1: nama_barang
+            stat.setString(2, txtkategoribarang.getText()); // Parameter 2: kategori_barang
+            stat.setInt(3, Integer.parseInt(txtjumlah.getText())); // Parameter 3: jumlah (angka)
+            stat.setDouble(4, Double.parseDouble(txtnilaibarang.getText())); // Parameter 4: nilai_barang (desimal)
+            stat.setString(5, txtmerek.getText()); // Parameter 5: merek
+            stat.setString(6, txtukuran.getText()); // Parameter 6: ukuran
+            stat.setString(7, txtketerangan.getText()); // Parameter 7: keterangan
+            stat.setString(8, txtkodebarang.getText()); // Parameter 8: kode_barang (untuk kondisi WHERE)
+
+            // Menjalankan query UPDATE
             stat.executeUpdate();
+
+            // Menampilkan pesan sukses jika data berhasil diubah
             JOptionPane.showMessageDialog(null, "Data berhasil diubah");
+
+            // Mengosongkan form input setelah perubahan berhasil
             kosong();
+
+            // Memperbarui data di tabel
             datatable();
         } catch (Exception e) {
+            // Menangani kesalahan dan menampilkan pesan error
             JOptionPane.showMessageDialog(null, "Data gagal diubah: " + e);
         }
     }//GEN-LAST:event_bubahActionPerformed
 
     private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
+        // Menampilkan dialog konfirmasi sebelum menghapus data
         int ok = JOptionPane.showConfirmDialog(null, "Hapus data?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+        // Mengecek apakah pengguna memilih "YES" (nilai 0 pada JOptionPane)
         if (ok == 0) {
+            // Query SQL untuk menghapus data berdasarkan kode_barang
             String sql = "DELETE FROM inventaris_masuk WHERE kode_barang=?";
+
             try {
+                // Mempersiapkan statement dengan parameter dinamis
                 PreparedStatement stat = conn.prepareStatement(sql);
+
+                // Mengisi parameter query dengan kode_barang dari input
                 stat.setString(1, txtkodebarang.getText());
+
+                // Menjalankan query DELETE
                 stat.executeUpdate();
+
+                // Menampilkan pesan sukses jika data berhasil dihapus
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+
+                // Mengosongkan form input setelah penghapusan berhasil
                 kosong();
+
+                // Memperbarui data di tabel
                 datatable();
             } catch (Exception e) {
+                // Menangani kesalahan dan menampilkan pesan error
                 JOptionPane.showMessageDialog(null, "Data gagal dihapus: " + e);
             }
         }
     }//GEN-LAST:event_bhapusActionPerformed
 
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
-       String sql = "SELECT * FROM inventaris_masuk WHERE kode_barang LIKE ? OR nama_barang LIKE ? OR kategori_barang LIKE ? OR jumlah LIKE ? OR nilai_barang LIKE ? OR merek LIKE ? OR ukuran LIKE ? OR keterangan LIKE ?";
+       // Query SQL untuk mencari data berdasarkan berbagai kolom menggunakan operator LIKE
+        String sql = "SELECT * FROM inventaris_masuk WHERE kode_barang LIKE ? OR nama_barang LIKE ? OR kategori_barang LIKE ? OR jumlah LIKE ? OR nilai_barang LIKE ? OR merek LIKE ? OR ukuran LIKE ? OR keterangan LIKE ?";
+
         try {
+            // Mempersiapkan statement dengan parameter dinamis
             PreparedStatement stat = conn.prepareStatement(sql);
+
+            // Membuat pola pencarian dengan wildcard "%" di sekitar teks pencarian
             String searchText = "%" + txtcari.getText() + "%";
+
+            // Mengisi semua parameter query dengan pola pencarian
             stat.setString(1, searchText);  // Pencarian pada kode_barang
             stat.setString(2, searchText);  // Pencarian pada nama_barang
             stat.setString(3, searchText);  // Pencarian pada kategori_barang
@@ -472,22 +524,29 @@ public class InventarisMasuk extends javax.swing.JFrame {
             stat.setString(7, searchText);  // Pencarian pada ukuran
             stat.setString(8, searchText);  // Pencarian pada keterangan
 
+            // Menjalankan query SELECT dan mendapatkan hasilnya
             ResultSet hasil = stat.executeQuery();
-            tabmode.setRowCount(0);  // Clear previous data in table
-            while (hasil.next()) {
-                String kode = hasil.getString("kode_barang");
-                String nama = hasil.getString("nama_barang");
-                String kategori = hasil.getString("kategori_barang");
-                String jumlah = hasil.getString("jumlah");
-                String nilai = hasil.getString("nilai_barang");
-                String merek = hasil.getString("merek");
-                String ukuran = hasil.getString("ukuran");
-                String keterangan = hasil.getString("keterangan");
 
+            // Menghapus data yang sebelumnya ditampilkan di tabel
+            tabmode.setRowCount(0);
+
+            // Mengisi tabel dengan data hasil pencarian
+            while (hasil.next()) {
+                String kode = hasil.getString("kode_barang");          // Kolom kode_barang
+                String nama = hasil.getString("nama_barang");          // Kolom nama_barang
+                String kategori = hasil.getString("kategori_barang");  // Kolom kategori_barang
+                String jumlah = hasil.getString("jumlah");             // Kolom jumlah
+                String nilai = hasil.getString("nilai_barang");        // Kolom nilai_barang
+                String merek = hasil.getString("merek");               // Kolom merek
+                String ukuran = hasil.getString("ukuran");             // Kolom ukuran
+                String keterangan = hasil.getString("keterangan");     // Kolom keterangan
+
+                // Menyimpan data ke dalam array untuk ditambahkan ke tabel
                 String[] data = {kode, nama, kategori, jumlah, nilai, merek, ukuran, keterangan};
-                tabmode.addRow(data);
+                tabmode.addRow(data);  // Menambahkan baris data ke model tabel
             }
         } catch (Exception e) {
+            // Menangani kesalahan dan menampilkan pesan error
             JOptionPane.showMessageDialog(null, "Data gagal dicari: " + e);
         }
     }//GEN-LAST:event_bcariActionPerformed
@@ -517,15 +576,18 @@ public class InventarisMasuk extends javax.swing.JFrame {
     }//GEN-LAST:event_bkeluarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Mendapatkan baris yang dipilih dari tabel jTable1
         int selectedRow = jTable1.getSelectedRow();
-        txtkodebarang.setText(jTable1.getValueAt(selectedRow, 0).toString());
-        txtnamabarang.setText(jTable1.getValueAt(selectedRow, 1).toString());
-        txtkategoribarang.setText(jTable1.getValueAt(selectedRow, 2).toString());
-        txtjumlah.setText(jTable1.getValueAt(selectedRow, 3).toString());
-        txtnilaibarang.setText(jTable1.getValueAt(selectedRow, 4).toString());
-        txtmerek.setText(jTable1.getValueAt(selectedRow, 5).toString());
-        txtukuran.setText(jTable1.getValueAt(selectedRow, 6).toString());
-        txtketerangan.setText(jTable1.getValueAt(selectedRow, 7).toString());
+
+        // Mengisi field input berdasarkan nilai yang ada di baris dan kolom tabel yang dipilih
+        txtkodebarang.setText(jTable1.getValueAt(selectedRow, 0).toString()); // Kolom 0: kode_barang
+        txtnamabarang.setText(jTable1.getValueAt(selectedRow, 1).toString()); // Kolom 1: nama_barang
+        txtkategoribarang.setText(jTable1.getValueAt(selectedRow, 2).toString()); // Kolom 2: kategori_barang
+        txtjumlah.setText(jTable1.getValueAt(selectedRow, 3).toString()); // Kolom 3: jumlah
+        txtnilaibarang.setText(jTable1.getValueAt(selectedRow, 4).toString()); // Kolom 4: nilai_barang
+        txtmerek.setText(jTable1.getValueAt(selectedRow, 5).toString()); // Kolom 5: merek
+        txtukuran.setText(jTable1.getValueAt(selectedRow, 6).toString()); // Kolom 6: ukuran
+        txtketerangan.setText(jTable1.getValueAt(selectedRow, 7).toString()); // Kolom 7: keterangan
     }//GEN-LAST:event_jTable1MouseClicked
     
      private void kosong() {
@@ -541,26 +603,45 @@ public class InventarisMasuk extends javax.swing.JFrame {
     }
     
     protected void datatable() {
+       // Membuat header kolom untuk tabel
         Object[] Baris = {"Kode Barang", "Nama Barang", "Kategori", "Jumlah", "Nilai Barang", "Merek", "Ukuran", "Keterangan"};
+
+        // Membuat model tabel dengan header kolom yang telah didefinisikan
         tabmode = new DefaultTableModel(null, Baris);
+
+        // Mengatur model tabel ke dalam jTable1
         jTable1.setModel(tabmode);
+
+        // Query SQL untuk mengambil semua data dari tabel inventaris_masuk
         String sql = "SELECT * FROM inventaris_masuk";
+
         try {
+            // Membuat statement untuk eksekusi query
             Statement stat = conn.createStatement();
+
+            // Menjalankan query dan menyimpan hasilnya dalam ResultSet
             ResultSet hasil = stat.executeQuery(sql);
+
+            // Iterasi melalui setiap baris hasil query
             while (hasil.next()) {
-                String kode = hasil.getString("kode_barang");
-                String nama = hasil.getString("nama_barang");
-                String kategori = hasil.getString("kategori_barang");
-                String jumlah = hasil.getString("jumlah");
-                String nilai = hasil.getString("nilai_barang");
-                String merek = hasil.getString("merek");
-                String ukuran = hasil.getString("ukuran");
-                String keterangan = hasil.getString("keterangan");
+                // Mengambil data dari setiap kolom di tabel database
+                String kode = hasil.getString("kode_barang");          // Kolom kode_barang
+                String nama = hasil.getString("nama_barang");          // Kolom nama_barang
+                String kategori = hasil.getString("kategori_barang");  // Kolom kategori_barang
+                String jumlah = hasil.getString("jumlah");             // Kolom jumlah
+                String nilai = hasil.getString("nilai_barang");        // Kolom nilai_barang
+                String merek = hasil.getString("merek");               // Kolom merek
+                String ukuran = hasil.getString("ukuran");             // Kolom ukuran
+                String keterangan = hasil.getString("keterangan");     // Kolom keterangan
+
+                // Membuat array untuk menyimpan data baris
                 String[] data = {kode, nama, kategori, jumlah, nilai, merek, ukuran, keterangan};
+
+                // Menambahkan data ke dalam model tabel
                 tabmode.addRow(data);
             }
         } catch (Exception e) {
+            // Menangani kesalahan dan menampilkan pesan error jika data gagal ditampilkan
             JOptionPane.showMessageDialog(null, "Data gagal ditampilkan: " + e);
         }
     }
