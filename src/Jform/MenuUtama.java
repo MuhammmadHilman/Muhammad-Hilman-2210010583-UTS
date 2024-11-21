@@ -119,17 +119,26 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_jmenuActionPerformed
 
     private void jdatabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdatabarangActionPerformed
+         // Membuat objek baru dari kelas DataBarang
         DataBarang frmB = new DataBarang();
+
+        // Menampilkan form DataBarang
         frmB.setVisible(true);
     }//GEN-LAST:event_jdatabarangActionPerformed
 
     private void jinventarismasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinventarismasukActionPerformed
+        // Membuat objek baru dari kelas InventarisMasuk
         InventarisMasuk frmB = new InventarisMasuk();
+
+        // Menampilkan form InventarisMasuk
         frmB.setVisible(true);
     }//GEN-LAST:event_jinventarismasukActionPerformed
 
     private void jinventariskeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinventariskeluarActionPerformed
+        // Membuat objek baru dari kelas InventarisKeluar
         InventarisKeluar frmB = new InventarisKeluar();
+
+        // Menampilkan form InventarisKeluar
         frmB.setVisible(true);
     }//GEN-LAST:event_jinventariskeluarActionPerformed
 
