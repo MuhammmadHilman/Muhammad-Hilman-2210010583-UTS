@@ -149,7 +149,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registrasiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrasiButtonActionPerformed
+        // Menyembunyikan form saat ini (form yang sedang aktif)
         this.setVisible(false);
+
+        // Membuka form Registrasi baru dan menampilkannya
         new Registrasi().setVisible(true);
     }//GEN-LAST:event_registrasiButtonActionPerformed
 

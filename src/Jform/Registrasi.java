@@ -116,31 +116,39 @@ public class Registrasi extends javax.swing.JFrame {
 
     private void registrasijButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrasijButtonActionPerformed
              try {
+            // Validasi input: pastikan field username dan password tidak kosong
             if (textusername.getText().isEmpty() || textpassword.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Username dan Password tidak boleh kosong!");
-                return;
+                return; // Menghentikan proses jika input tidak valid
             }
 
+            // Mendapatkan input dari user
             String username = textusername.getText();
             String password = textpassword.getText();
 
+            // Mengecek apakah username sudah terdaftar di database
             String checkSql = "SELECT * FROM mst_user WHERE username = '" + username + "'";
             Statement checkStmt = conn.createStatement();
             ResultSet checkResult = checkStmt.executeQuery(checkSql);
 
-            if (checkResult.next()) {
+            if (checkResult.next()) { // Jika username ditemukan
                 JOptionPane.showMessageDialog(null, "Username sudah terdaftar!");
-                return;
+                return; // Menghentikan proses jika username sudah ada
             }
 
+            // Menyimpan data username dan password ke tabel `mst_user`
             String sql = "INSERT INTO mst_user (username, password) VALUES ('" + username + "', '" + password + "')";
             Statement stat = conn.createStatement();
-            stat.executeUpdate(sql);
+            stat.executeUpdate(sql); // Menjalankan query INSERT
 
+            // Menampilkan pesan sukses
             JOptionPane.showMessageDialog(null, "Registrasi Berhasil!");
+
+            // Menutup form registrasi dan membuka form login
             this.setVisible(false);
             new Login().setVisible(true);
         } catch (Exception e) {
+            // Menampilkan pesan kesalahan jika ada exception
             JOptionPane.showMessageDialog(null, "Registrasi Gagal! " + e);
         }
     }//GEN-LAST:event_registrasijButtonActionPerformed
