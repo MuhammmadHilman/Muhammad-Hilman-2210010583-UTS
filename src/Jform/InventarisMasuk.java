@@ -87,7 +87,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(78, 62, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(53, 76, 0, 0);
         jPanel1.add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Nama Barang");
@@ -96,7 +96,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 62, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(21, 76, 0, 0);
         jPanel1.add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Kategori Barang");
@@ -105,7 +105,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 62, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(21, 76, 0, 0);
         jPanel1.add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("Jumlah");
@@ -113,17 +113,17 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 62, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(21, 76, 0, 0);
         jPanel1.add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Nilai Barang");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(81, 37, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(56, 37, 0, 0);
         jPanel1.add(jLabel5, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
@@ -131,7 +131,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 165;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(75, 47, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(50, 47, 0, 0);
         jPanel1.add(txtkodebarang, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
@@ -158,20 +158,19 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 47, 0, 0);
         jPanel1.add(txtjumlah, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 30;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 213;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(78, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(53, 10, 0, 0);
         jPanel1.add(txtnilaibarang, gridBagConstraints);
 
         jLabel6.setText("Merek");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 37, 0, 0);
         jPanel1.add(jLabel6, gridBagConstraints);
@@ -180,23 +179,23 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(21, 37, 0, 0);
         jPanel1.add(jLabel7, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 30;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 213;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 10, 0, 0);
         jPanel1.add(txtmerek, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 30;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 213;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -210,12 +209,11 @@ public class InventarisMasuk extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 17, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 10, 0, 0);
         jPanel1.add(bsimpan, gridBagConstraints);
 
         bubah.setText("Ubah");
@@ -225,13 +223,12 @@ public class InventarisMasuk extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 21;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 8;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 18, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 1, 0, 0);
         jPanel1.add(bubah, gridBagConstraints);
 
         bhapus.setText("Hapus");
@@ -241,9 +238,9 @@ public class InventarisMasuk extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 34, 0, 0);
@@ -256,9 +253,9 @@ public class InventarisMasuk extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 28;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
@@ -271,13 +268,13 @@ public class InventarisMasuk extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 36;
+        gridBagConstraints.gridx = 13;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 31;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 18, 0, 84);
+        gridBagConstraints.insets = new java.awt.Insets(2, 1, 0, 94);
         jPanel1.add(bkeluar, gridBagConstraints);
 
         jLabel8.setText("Keterangan");
@@ -286,7 +283,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridy = 11;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(4, 62, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 76, 0, 0);
         jPanel1.add(jLabel8, gridBagConstraints);
 
         txtketerangan.setColumns(20);
@@ -296,15 +293,14 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 213;
-        gridBagConstraints.ipady = 42;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.ipadx = 148;
+        gridBagConstraints.ipady = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(4, 47, 18, 0);
+        gridBagConstraints.insets = new java.awt.Insets(4, 47, 28, 0);
         jPanel1.add(jScrollPane1, gridBagConstraints);
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
@@ -334,12 +330,12 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 615;
-        gridBagConstraints.ipady = 238;
+        gridBagConstraints.ipadx = 649;
+        gridBagConstraints.ipady = 261;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(18, 29, 80, 75);
+        gridBagConstraints.insets = new java.awt.Insets(6, 41, 18, 87);
         jPanel2.add(jScrollPane2, gridBagConstraints);
 
         jLabel9.setText("Cari Data :");
@@ -347,7 +343,8 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 29, 0, 0);
+        gridBagConstraints.weighty = 0.3;
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 0, 0);
         jPanel2.add(jLabel9, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -355,7 +352,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 171;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 29, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 41, 0, 0);
         jPanel2.add(txtcari, gridBagConstraints);
 
         bcari.setText("Cari");
@@ -376,15 +373,15 @@ public class InventarisMasuk extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -503,8 +500,47 @@ public class InventarisMasuk extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bhapusActionPerformed
 
+    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
+        // Membersihkan semua input field
+        txtkodebarang.setText("");
+        txtnamabarang.setText("");
+        txtkategoribarang.setText("");
+        txtjumlah.setText("");
+        txtnilaibarang.setText("");
+        txtmerek.setText("");
+        txtukuran.setText("");
+        txtketerangan.setText("");
+       
+    }//GEN-LAST:event_bbatalActionPerformed
+
+    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
+        int confirmed = JOptionPane.showConfirmDialog(null, 
+            "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", 
+            JOptionPane.YES_NO_OPTION);
+
+        // Jika pengguna memilih YES, maka tutup form saat ini
+        if (confirmed == JOptionPane.YES_OPTION) {
+            this.dispose(); // Menutup form saat ini
+        }
+    }//GEN-LAST:event_bkeluarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Mendapatkan baris yang dipilih dari tabel jTable1
+        int selectedRow = jTable1.getSelectedRow();
+
+        // Mengisi field input berdasarkan nilai yang ada di baris dan kolom tabel yang dipilih
+        txtkodebarang.setText(jTable1.getValueAt(selectedRow, 0).toString()); // Kolom 0: kode_barang
+        txtnamabarang.setText(jTable1.getValueAt(selectedRow, 1).toString()); // Kolom 1: nama_barang
+        txtkategoribarang.setText(jTable1.getValueAt(selectedRow, 2).toString()); // Kolom 2: kategori_barang
+        txtjumlah.setText(jTable1.getValueAt(selectedRow, 3).toString()); // Kolom 3: jumlah
+        txtnilaibarang.setText(jTable1.getValueAt(selectedRow, 4).toString()); // Kolom 4: nilai_barang
+        txtmerek.setText(jTable1.getValueAt(selectedRow, 5).toString()); // Kolom 5: merek
+        txtukuran.setText(jTable1.getValueAt(selectedRow, 6).toString()); // Kolom 6: ukuran
+        txtketerangan.setText(jTable1.getValueAt(selectedRow, 7).toString()); // Kolom 7: keterangan
+    }//GEN-LAST:event_jTable1MouseClicked
+
     private void bcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcariActionPerformed
-       // Query SQL untuk mencari data berdasarkan berbagai kolom menggunakan operator LIKE
+        // Query SQL untuk mencari data berdasarkan berbagai kolom menggunakan operator LIKE
         String sql = "SELECT * FROM inventaris_masuk WHERE kode_barang LIKE ? OR nama_barang LIKE ? OR kategori_barang LIKE ? OR jumlah LIKE ? OR nilai_barang LIKE ? OR merek LIKE ? OR ukuran LIKE ? OR keterangan LIKE ?";
 
         try {
@@ -550,45 +586,6 @@ public class InventarisMasuk extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data gagal dicari: " + e);
         }
     }//GEN-LAST:event_bcariActionPerformed
-
-    private void bbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bbatalActionPerformed
-        // Membersihkan semua input field
-        txtkodebarang.setText("");
-        txtnamabarang.setText("");
-        txtkategoribarang.setText("");
-        txtjumlah.setText("");
-        txtnilaibarang.setText("");
-        txtmerek.setText("");
-        txtukuran.setText("");
-        txtketerangan.setText("");
-       
-    }//GEN-LAST:event_bbatalActionPerformed
-
-    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        int confirmed = JOptionPane.showConfirmDialog(null, 
-            "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", 
-            JOptionPane.YES_NO_OPTION);
-
-        // Jika pengguna memilih YES, maka tutup form saat ini
-        if (confirmed == JOptionPane.YES_OPTION) {
-            this.dispose(); // Menutup form saat ini
-        }
-    }//GEN-LAST:event_bkeluarActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // Mendapatkan baris yang dipilih dari tabel jTable1
-        int selectedRow = jTable1.getSelectedRow();
-
-        // Mengisi field input berdasarkan nilai yang ada di baris dan kolom tabel yang dipilih
-        txtkodebarang.setText(jTable1.getValueAt(selectedRow, 0).toString()); // Kolom 0: kode_barang
-        txtnamabarang.setText(jTable1.getValueAt(selectedRow, 1).toString()); // Kolom 1: nama_barang
-        txtkategoribarang.setText(jTable1.getValueAt(selectedRow, 2).toString()); // Kolom 2: kategori_barang
-        txtjumlah.setText(jTable1.getValueAt(selectedRow, 3).toString()); // Kolom 3: jumlah
-        txtnilaibarang.setText(jTable1.getValueAt(selectedRow, 4).toString()); // Kolom 4: nilai_barang
-        txtmerek.setText(jTable1.getValueAt(selectedRow, 5).toString()); // Kolom 5: merek
-        txtukuran.setText(jTable1.getValueAt(selectedRow, 6).toString()); // Kolom 6: ukuran
-        txtketerangan.setText(jTable1.getValueAt(selectedRow, 7).toString()); // Kolom 7: keterangan
-    }//GEN-LAST:event_jTable1MouseClicked
     
      private void kosong() {
         txtkodebarang.setText("");
