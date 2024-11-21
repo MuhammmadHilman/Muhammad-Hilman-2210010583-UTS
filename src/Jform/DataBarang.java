@@ -5,23 +5,23 @@
  */
 package Jform;
 
-import java.awt.Desktop;
+
 import java.io.File;
-import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+
 
 /**
  *
@@ -42,6 +42,8 @@ public class DataBarang extends javax.swing.JFrame {
                bcetakdataActionPerformed(evt);
            }
        });
+           
+           
     }
 
     
@@ -61,13 +63,16 @@ public class DataBarang extends javax.swing.JFrame {
         bcetakdata = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        bkeluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Inventaris Barang", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 24))); // NOI18N
 
         jLabel1.setText("Cari Data");
 
+        bcaridata.setBackground(new java.awt.Color(204, 204, 255));
         bcaridata.setText("Cari");
         bcaridata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +80,7 @@ public class DataBarang extends javax.swing.JFrame {
             }
         });
 
+        bcetakdata.setBackground(new java.awt.Color(204, 204, 204));
         bcetakdata.setText("Cetak");
         bcetakdata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +101,13 @@ public class DataBarang extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        bkeluar.setText("Keluar");
+        bkeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bkeluarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,7 +124,9 @@ public class DataBarang extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(bcaridata)
                                 .addGap(18, 18, 18)
-                                .addComponent(bcetakdata)))
+                                .addComponent(bcetakdata)
+                                .addGap(18, 18, 18)
+                                .addComponent(bkeluar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -124,7 +139,8 @@ public class DataBarang extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcaridata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcaridata)
-                    .addComponent(bcetakdata))
+                    .addComponent(bcetakdata)
+                    .addComponent(bkeluar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                 .addContainerGap())
@@ -166,11 +182,9 @@ public class DataBarang extends javax.swing.JFrame {
                     int jumlahMasuk = hasil.getInt("jumlah_masuk");
                     int jumlahKeluar = hasil.getInt("jumlah_keluar");
                     int sisaStok = hasil.getInt("sisa_stok");
-                    String tanggalKeluar = hasil.getString("tanggal_keluar");
-                    String keterangan = hasil.getString("keterangan");
-
+                   
                     // Menambahkan hasil pencarian ke tabel
-                    String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok), tanggalKeluar, keterangan};
+                    String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
                     tabmode.addRow(data);  // Menambah baris ke tabel
                 }
             } catch (SQLException e) {
@@ -182,24 +196,48 @@ public class DataBarang extends javax.swing.JFrame {
     
     
     private void bcetakdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcetakdataActionPerformed
+            String jdbc_driver = "com.mysql.jdbc.Driver";
+            String user = "root";
+            String pass = "";
+            String url = "jdbc:mysql://localhost:3306/proyek_uts?zeroDateTimeBehavior=convertToNull";
+            File reportFile = new File(".");
+             
             try {
-            // Lokasi file laporan .jrxml atau .jasper
-            String path = "C:\\Users\\Hp\\Documents\\NetBeansProjects\\Muhammad Hilman-2210010583-UTS\\src\\laporan\\DataBarangReport.jasper";
+            // Membuat koneksi ke database
+            Connection conn = DriverManager.getConnection(url, user, pass);
 
-            // Membuat parameter untuk laporan (opsional, jika diperlukan)
-            HashMap<String, Object> parameter = new HashMap<>();
-            parameter.put("param1", "Nilai contoh"); // Ubah sesuai kebutuhan atau hapus jika tidak digunakan
+            // Memuat file laporan .jasper (kompilasi dari .jrxml)
+            String reportPath = "C:\\Users\\Hp\\Documents\\NetBeansProjects\\Muhammad Hilman-2210010583-UTS\\src\\Report\\reportdata.jasper";
 
-            // Memuat dan menampilkan laporan
-            JasperPrint print = JasperFillManager.fillReport(path, parameter, conn);
-            JasperViewer.viewReport(print, false); // Menampilkan laporan
-        } catch (Exception e) {
+
+            // Parameter laporan
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("parameter1", "value1");  // Tambahkan parameter laporan jika perlu
+            // Anda bisa menambahkan lebih banyak parameter yang sesuai dengan laporan Anda
+
+            // Menjalankan laporan
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, conn);
+
+            // Menampilkan laporan dalam JasperViewer
+            JasperViewer.viewReport(jasperPrint, false);
+        } catch (SQLException | JRException e) {
             JOptionPane.showMessageDialog(null, "Gagal mencetak laporan: " + e.getMessage());
         }
     }//GEN-LAST:event_bcetakdataActionPerformed
 
+    private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
+      int confirmed = JOptionPane.showConfirmDialog(null, 
+        "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", 
+        JOptionPane.YES_NO_OPTION);
+
+        // Jika pengguna memilih YES, maka tutup form saat ini
+        if (confirmed == JOptionPane.YES_OPTION) {
+            this.dispose(); // Menutup form saat ini
+        }
+    }//GEN-LAST:event_bkeluarActionPerformed
+
     protected void datatable() {
-        Object[] columns = {"Kode Barang", "Nama Barang", "Kategori Barang", "Jumlah Masuk", "Jumlah Keluar", "Sisa Stok", "Tanggal Keluar", "Keterangan"};
+        Object[] columns = {"Kode Barang", "Nama Barang", "Kategori Barang", "Jumlah Masuk", "Jumlah Keluar", "Sisa Stok" };
         tabmode = new DefaultTableModel(null, columns);
         jTable1.setModel(tabmode);
 
@@ -215,10 +253,8 @@ public class DataBarang extends javax.swing.JFrame {
                 int jumlahMasuk = hasil.getInt("jumlah_masuk");
                 int jumlahKeluar = hasil.getInt("jumlah_keluar");
                 int sisaStok = hasil.getInt("sisa_stok");
-                String tanggalKeluar = hasil.getString("tanggal_keluar");
-                String keterangan = hasil.getString("keterangan");
 
-                String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok), tanggalKeluar, keterangan};
+                String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
                 tabmode.addRow(data);  // Menambahkan data ke tabel
             }
         } catch (SQLException e) {
@@ -263,6 +299,7 @@ public class DataBarang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcaridata;
     private javax.swing.JButton bcetakdata;
+    private javax.swing.JButton bkeluar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

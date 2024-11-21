@@ -30,11 +30,11 @@ public class MenuUtama extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmenu = new javax.swing.JMenu();
+        jdatabarang = new javax.swing.JMenuItem();
+        jmenu2 = new javax.swing.JMenu();
+        jinventarismasuk = new javax.swing.JMenuItem();
+        jinventariskeluar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,22 +61,42 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addContainerGap(262, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Master");
+        jmenu.setText("Master");
+        jmenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmenuActionPerformed(evt);
+            }
+        });
 
-        jMenuItem1.setText("Data Barang");
-        jMenu1.add(jMenuItem1);
+        jdatabarang.setText("Data Barang");
+        jdatabarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jdatabarangActionPerformed(evt);
+            }
+        });
+        jmenu.add(jdatabarang);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmenu);
 
-        jMenu2.setText("Transaksi");
+        jmenu2.setText("Transaksi");
 
-        jMenuItem3.setText("Inventaris Masuk");
-        jMenu2.add(jMenuItem3);
+        jinventarismasuk.setText("Inventaris Masuk");
+        jinventarismasuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jinventarismasukActionPerformed(evt);
+            }
+        });
+        jmenu2.add(jinventarismasuk);
 
-        jMenuItem4.setText("Inventaris Keluar");
-        jMenu2.add(jMenuItem4);
+        jinventariskeluar.setText("Inventaris Keluar");
+        jinventariskeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jinventariskeluarActionPerformed(evt);
+            }
+        });
+        jmenu2.add(jinventariskeluar);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jmenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -93,6 +113,25 @@ public class MenuUtama extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuActionPerformed
+        
+    }//GEN-LAST:event_jmenuActionPerformed
+
+    private void jdatabarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jdatabarangActionPerformed
+        DataBarang frmB = new DataBarang();
+        frmB.setVisible(true);
+    }//GEN-LAST:event_jdatabarangActionPerformed
+
+    private void jinventarismasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinventarismasukActionPerformed
+        InventarisMasuk frmB = new InventarisMasuk();
+        frmB.setVisible(true);
+    }//GEN-LAST:event_jinventarismasukActionPerformed
+
+    private void jinventariskeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinventariskeluarActionPerformed
+        InventarisKeluar frmB = new InventarisKeluar();
+        frmB.setVisible(true);
+    }//GEN-LAST:event_jinventariskeluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,12 +170,12 @@ public class MenuUtama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem jdatabarang;
+    private javax.swing.JMenuItem jinventariskeluar;
+    private javax.swing.JMenuItem jinventarismasuk;
+    private javax.swing.JMenu jmenu;
+    private javax.swing.JMenu jmenu2;
     // End of variables declaration//GEN-END:variables
 }

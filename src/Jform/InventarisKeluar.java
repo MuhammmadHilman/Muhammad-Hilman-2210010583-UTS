@@ -90,6 +90,7 @@ public class InventarisKeluar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inventaris Keluar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 36))); // NOI18N
 
         jLabel1.setText("Id Keluar");
@@ -239,6 +240,7 @@ public class InventarisKeluar extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "List Data inventaris", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 14))); // NOI18N
 
         jLabel8.setText("Cari Data :");
@@ -392,10 +394,14 @@ public class InventarisKeluar extends javax.swing.JFrame {
     }//GEN-LAST:event_bsimpanActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-         int confirm = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin keluar?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            this.dispose(); // Menutup form InventarisKeluar
-        }
+        int confirmed = JOptionPane.showConfirmDialog(null, 
+         "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", 
+         JOptionPane.YES_NO_OPTION);
+
+     // Jika pengguna memilih YES, maka tutup form saat ini
+     if (confirmed == JOptionPane.YES_OPTION) {
+         this.dispose(); // Menutup form saat ini
+     }
     }//GEN-LAST:event_bkeluarActionPerformed
 
     private void bcarikodebarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcarikodebarangActionPerformed

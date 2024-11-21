@@ -124,19 +124,27 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        try {
-            String sql = "SELECT * FROM mst_user WHERE username='"+txtusername.getText()+"' AND password='"+txtpassword.getText()+"'";
+         try {
+            // Query untuk validasi login
+            String sql = "SELECT * FROM mst_user WHERE username='" + txtusername.getText() + "' AND password='" + txtpassword.getText() + "'";
             Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
-            if(hasil.next()) {
+
+            if (hasil.next()) {
+                // Menyimpan ID User (opsional)
                 UserID.setUserLogin(hasil.getString("id_user"));
-                this.setVisible(false);
-                new tampilan.MenuUtama().setVisible(true);
+
+                // Menampilkan MenuUtama
+                JOptionPane.showMessageDialog(null, "Login Berhasil");
+                this.dispose(); // Menutup form login
+                new MenuUtama().setVisible(true); // Membuka form MenuUtama
             } else {
+                // Pesan jika username atau password salah
                 JOptionPane.showMessageDialog(null, "Username atau Password Salah");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal Login "+ e);
+            // Menampilkan error jika ada masalah koneksi atau query
+            JOptionPane.showMessageDialog(null, "Gagal Login: " + e.getMessage());
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -172,7 +180,7 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

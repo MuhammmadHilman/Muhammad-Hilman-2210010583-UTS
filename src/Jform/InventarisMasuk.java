@@ -30,6 +30,7 @@ public class InventarisMasuk extends javax.swing.JFrame {
     public InventarisMasuk() {
         initComponents();
         datatable();
+        
           
     }
     
@@ -505,15 +506,13 @@ public class InventarisMasuk extends javax.swing.JFrame {
     }//GEN-LAST:event_bbatalActionPerformed
 
     private void bkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkeluarActionPerformed
-        // Menampilkan dialog konfirmasi sebelum keluar
-        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
-                "Apakah Anda yakin ingin keluar?", 
-                "Konfirmasi Keluar", 
-                javax.swing.JOptionPane.YES_NO_OPTION, 
-                javax.swing.JOptionPane.QUESTION_MESSAGE);
+        int confirmed = JOptionPane.showConfirmDialog(null, 
+            "Apakah Anda yakin ingin keluar?", "Konfirmasi Keluar", 
+            JOptionPane.YES_NO_OPTION);
 
-        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-            System.exit(0); // Menutup aplikasi
+        // Jika pengguna memilih YES, maka tutup form saat ini
+        if (confirmed == JOptionPane.YES_OPTION) {
+            this.dispose(); // Menutup form saat ini
         }
     }//GEN-LAST:event_bkeluarActionPerformed
 
