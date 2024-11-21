@@ -35,15 +35,14 @@ public class DataBarang extends javax.swing.JFrame {
      */
     public DataBarang() {
         initComponents();
-         datatable();
-         
-           bcetakdata.addActionListener(new java.awt.event.ActionListener() {
-           public void actionPerformed(java.awt.event.ActionEvent evt) {
-               bcetakdataActionPerformed(evt);
-           }
-       });
-           
-           
+        datatable();        // Memuat dan menampilkan data dalam tabel
+
+        // Menambahkan ActionListener ke tombol "Cetak Data"
+        bcetakdata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcetakdataActionPerformed(evt);   // Menjalankan aksi ketika tombol diklik
+            }
+        });
     }
 
     
@@ -161,33 +160,50 @@ public class DataBarang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bcaridataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcaridataActionPerformed
+        // Mengambil teks yang dimasukkan pada field pencarian
         String cari = txtcaridata.getText();
+
+        // Cek apakah field pencarian kosong
         if (cari.isEmpty()) {
+            // Jika kosong, tampilkan pesan peringatan
             JOptionPane.showMessageDialog(null, "Masukkan data untuk pencarian");
         } else {
+            // Jika ada input, buat query pencarian
             String sql = "SELECT * FROM data_barang WHERE kode_barang LIKE ? OR nama_barang LIKE ? OR kategori_barang LIKE ?";
             try {
+                // Siapkan statement untuk menjalankan query
                 PreparedStatement stat = conn.prepareStatement(sql);
+
+                // Tentukan parameter pencarian dengan menambahkan wildcard '%' agar dapat mencari berdasarkan bagian dari string
                 stat.setString(1, "%" + cari + "%");
                 stat.setString(2, "%" + cari + "%");
                 stat.setString(3, "%" + cari + "%");
 
+                // Eksekusi query
                 ResultSet hasil = stat.executeQuery();
-                tabmode.setRowCount(0);  // Menghapus data lama di tabel
 
+                // Menghapus data lama pada tabel sebelum menampilkan hasil pencarian baru
+                tabmode.setRowCount(0);
+
+                // Proses hasil pencarian
                 while (hasil.next()) {
+                    // Ambil data dari hasil pencarian
                     String kodeBarang = hasil.getString("kode_barang");
                     String namaBarang = hasil.getString("nama_barang");
                     String kategoriBarang = hasil.getString("kategori_barang");
                     int jumlahMasuk = hasil.getInt("jumlah_masuk");
                     int jumlahKeluar = hasil.getInt("jumlah_keluar");
                     int sisaStok = hasil.getInt("sisa_stok");
-                   
-                    // Menambahkan hasil pencarian ke tabel
-                    String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
-                    tabmode.addRow(data);  // Menambah baris ke tabel
+
+                    // Siapkan data untuk ditampilkan pada tabel
+                    String[] data = {kodeBarang, namaBarang, kategoriBarang, 
+                                     String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
+
+                    // Tambahkan data ke tabel
+                    tabmode.addRow(data);
                 }
             } catch (SQLException e) {
+                // Tampilkan pesan error jika query gagal dijalankan
                 JOptionPane.showMessageDialog(null, "Gagal mencari data: " + e);
             }
         }
@@ -237,16 +253,27 @@ public class DataBarang extends javax.swing.JFrame {
     }//GEN-LAST:event_bkeluarActionPerformed
 
     protected void datatable() {
-        Object[] columns = {"Kode Barang", "Nama Barang", "Kategori Barang", "Jumlah Masuk", "Jumlah Keluar", "Sisa Stok" };
+        // Mendefinisikan nama kolom untuk tabel
+        Object[] columns = {"Kode Barang", "Nama Barang", "Kategori Barang", "Jumlah Masuk", "Jumlah Keluar", "Sisa Stok"};
+
+        // Membuat model tabel dengan kolom yang sudah didefinisikan
         tabmode = new DefaultTableModel(null, columns);
+
+        // Mengatur model tabel pada jTable1
         jTable1.setModel(tabmode);
 
+        // Query untuk mengambil semua data dari tabel data_barang
         String sql = "SELECT * FROM data_barang";
         try {
+            // Menyiapkan statement untuk menjalankan query SQL
             PreparedStatement stat = conn.prepareStatement(sql);
+
+            // Menjalankan query dan mendapatkan hasilnya
             ResultSet hasil = stat.executeQuery();
 
+            // Mengambil data dari hasil query dan memasukkannya ke dalam tabel
             while (hasil.next()) {
+                // Mengambil data masing-masing kolom
                 String kodeBarang = hasil.getString("kode_barang");
                 String namaBarang = hasil.getString("nama_barang");
                 String kategoriBarang = hasil.getString("kategori_barang");
@@ -254,10 +281,15 @@ public class DataBarang extends javax.swing.JFrame {
                 int jumlahKeluar = hasil.getInt("jumlah_keluar");
                 int sisaStok = hasil.getInt("sisa_stok");
 
-                String[] data = {kodeBarang, namaBarang, kategoriBarang, String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
-                tabmode.addRow(data);  // Menambahkan data ke tabel
+                // Menyiapkan data untuk dimasukkan ke dalam tabel
+                String[] data = {kodeBarang, namaBarang, kategoriBarang, 
+                                 String.valueOf(jumlahMasuk), String.valueOf(jumlahKeluar), String.valueOf(sisaStok)};
+
+                // Menambahkan data ke dalam tabel
+                tabmode.addRow(data);
             }
         } catch (SQLException e) {
+            // Menampilkan pesan error jika query gagal dijalankan
             JOptionPane.showMessageDialog(null, "Data gagal ditampilkan: " + e);
         }
     }
