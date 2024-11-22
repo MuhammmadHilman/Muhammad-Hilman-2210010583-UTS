@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b4af426-0c1b-4702-815b-8552ae9e6806">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="85"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -32,35 +35,20 @@ FROM
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="164" height="126" uuid="5e5c913b-e537-43f4-a13f-a059741e65a8"/>
-				<imageExpression><![CDATA["coffee.jpg"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement style="Title" x="270" y="0" width="263" height="62" uuid="c76a782f-a6c3-4b73-9d0d-cbb4dddd33ae"/>
+				<reportElement style="Title" x="270" y="0" width="285" height="62" uuid="c76a782f-a6c3-4b73-9d0d-cbb4dddd33ae"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Coffee Title]]></text>
+				<text><![CDATA[Data Barang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="5f439d04-2f98-4c2f-88dd-2f7145e5256f"/>
 				<textElement>
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Coffee SubTitle]]></text>
+				<text><![CDATA[By Muhammad Hilman]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="172" y="94" width="383" height="42" uuid="c984dbcd-3672-4c2a-b0d6-477cede781a2"/>
-				<textElement textAlignment="Right">
-					<font size="10"/>
-				</textElement>
-				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor purus gravida arcu aliquam mattis. Donec et nulla libero, ut varius massa. Nulla sed turpis elit. Etiam aliquet mauris a ligula hendrerit in auctor leo lobortis.]]></text>
-			</staticText>
-			<image>
-				<reportElement x="633" y="-73" width="219" height="209" uuid="8b89c006-3573-4730-ba79-92a45e3c17cc"/>
-				<imageExpression><![CDATA["coffee_stain.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -76,27 +64,27 @@ FROM
 			</line>
 			<staticText>
 				<reportElement style="Column header" x="0" y="0" width="133" height="15" forecolor="#736343" uuid="9268c4cb-23c9-485a-9eb6-eb729eafa891"/>
-				<text><![CDATA[data_barang_kode_barang]]></text>
+				<text><![CDATA[Kode Barang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="133" y="0" width="133" height="15" forecolor="#736343" uuid="76ed2e56-467c-4a53-8beb-da0b01c28cdf"/>
-				<text><![CDATA[data_barang_nama_barang]]></text>
+				<text><![CDATA[Nama Barang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="266" y="0" width="133" height="15" forecolor="#736343" uuid="fd55b78c-4eb0-40bb-a136-e976c64461d0"/>
-				<text><![CDATA[data_barang_kategori_barang]]></text>
+				<text><![CDATA[Kategori]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="399" y="0" width="133" height="15" forecolor="#736343" uuid="9738fac9-da8c-4bf8-9b74-61a46546f838"/>
-				<text><![CDATA[data_barang_jumlah_masuk]]></text>
+				<text><![CDATA[Jumlah Masuk]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="532" y="0" width="133" height="15" forecolor="#736343" uuid="c3b2ef88-c971-45e5-a61b-7a8965e2da63"/>
-				<text><![CDATA[data_barang_jumlah_keluar]]></text>
+				<text><![CDATA[Jumlah Keluar]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="665" y="0" width="133" height="15" forecolor="#736343" uuid="52620492-eb83-4230-a9fe-a91f130b69bd"/>
-				<text><![CDATA[data_barang_sisa_stok]]></text>
+				<text><![CDATA[Sisa Stok]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
