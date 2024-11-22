@@ -37,12 +37,7 @@ public class DataBarang extends javax.swing.JFrame {
         initComponents();
         datatable();        // Memuat dan menampilkan data dalam tabel
 
-        // Menambahkan ActionListener ke tombol "Cetak Data"
-        bcetakdata.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bcetakdataActionPerformed(evt);   // Menjalankan aksi ketika tombol diklik
-            }
-        });
+       
     }
 
     
