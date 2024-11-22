@@ -212,7 +212,7 @@ public class DataBarang extends javax.swing.JFrame {
     
     
     private void bcetakdataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcetakdataActionPerformed
-            String jdbc_driver = "com.mysql.jdbc.Driver";
+            String jdbc_driver = "jdbc:mysql://localhost:3306/proyek_uts?zeroDateTimeBehavior=convertToNull [root on Default schema]";
             String user = "root";
             String pass = "";
             String url = "jdbc:mysql://localhost:3306/proyek_uts?zeroDateTimeBehavior=convertToNull";
